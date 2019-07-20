@@ -1,0 +1,36 @@
+<header (window:resize)="onResize($event)">
+  <div class="container dh-menu">
+    <ul class="nav">
+      <li class="nav-item menu-icon">
+        <a (click)="toggleMenu()" class="nav-link"><i class="fas fa-bars"></i></a>
+      </li>
+      <ng-container *ngIf="showMenu">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Updates</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">More Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ng-container>
+    </ul>
+    <div class="dh-btn-contact dh-btn-rounded d-none d-lg-block">
+      <i class="fas fa-phone-volume rotate-330"></i>
+      <span class="p-l-sm">+91 8787878787</span>
+    </div>
+  </div>
+  <div class="search-bar">
+    <a><i class="fas fa-search"></i></a>
+  </div>
+</header>

@@ -1,0 +1,19 @@
+<div class="card">
+  <nav class="nav nav-pills nav-justified dh-tab">
+    <a class="nav-item dh-tab-item active">Book Appointment</a>
+    <a class="nav-item dh-tab-item">Have an enquiry?</a>
+  </nav>
+  <div class="card-body">
+    <form>
+      <div class="input-group mb-3">
+        <span class="dh-input-label">Purpose</span>
+        <select class="custom-select" id="inputGroupSelect01">
+          <option selected disabled>Choose...</option>
+          <option *ngFor="let item of purposes" [value]="item.id">{{item.purpose}}</option>
+        </select>
+      </div>
+    </form>
+    <app-time-slot></app-time-slot>
+    <button class="w-100 dh-btn-primary">Continue</button>
+  </div>
+</div>

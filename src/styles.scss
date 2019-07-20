@@ -1,1 +1,358 @@
-/* You can add global styles to this file, and also import other style files */
+/* ---- variables ---- */
+$color-primary: #87d8d7;
+$color-dark: #555;
+$color-grey: #c4c2c2;
+$color-white: #fff;
+$padding: 1.25rem;
+
+body {
+  margin: 0;
+  height: 100vh;
+}
+
+header {
+  background: $color-white;
+  border-top: 5px solid $color-primary;
+
+}
+
+a {
+  color: $color-primary !important;
+  cursor: pointer;
+}
+
+.color-white {
+  color: $color-white;
+}
+
+/* ---- padding ---- */
+.p-0 {
+  padding: 0;
+}
+
+.p-t-0 {
+  padding-top: 0;
+}
+
+.p-sm {
+  padding: $padding/2;
+}
+
+.p-r-sm {
+  padding-right: $padding/2;
+}
+
+.p-l-sm {
+  padding-left: $padding/2;
+}
+
+.p-md {
+  padding: $padding;
+}
+
+.p-tb-md {
+  padding-top: $padding;
+  padding-bottom: $padding;
+}
+
+.p-sm {
+  padding: $padding*2;
+}
+
+
+/* ---- flex ---- */
+@mixin flex-jc-ac() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-jb-ac() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-ja-ac() {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.d-fc-jc-ac {
+  @include flex-jc-ac();
+  flex-direction: column;
+}
+
+.d-fc-jb-ac {
+  @include flex-jb-ac();
+  flex-direction: column;
+}
+
+.d-fc-ja-ac {
+  @include flex-ja-ac();
+  flex-direction: column;
+}
+
+.d-fr-jc-ac {
+  @include flex-jc-ac();
+  flex-direction: row;
+}
+
+.d-fr-jb-ac {
+  @include flex-jb-ac();
+  flex-direction: row;
+}
+
+.d-fr-ja-ac {
+  @include flex-ja-ac();
+  flex-direction: column;
+}
+
+
+/* ---- additional mixin ---- */
+@mixin primary-hover {
+  background: $color-primary;
+  border-color: $color-primary;
+  color: $color-white !important;
+  cursor: pointer;
+}
+
+/* ---- custom styles ---- */
+.dh-timeSlots {
+  td {
+    padding: 0.25rem;
+
+    &.dh-timeBlock {
+      min-width: 50px;
+    }
+
+    &.active:hover {
+      color: $color-white;
+      background: $color-primary;
+      cursor: pointer;
+    }
+
+    &.booked {
+      text-decoration: line-through;
+      color: $color-grey;
+    }
+
+  }
+}
+
+.rotate-330 {
+  transform: rotate(330deg);
+}
+
+.dh-btn-primary {
+  color: $color-white;
+  background: $color-primary;
+  padding-top: $padding/2;
+  padding-bottom: $padding/2;
+  border: none;
+
+  &:hover {
+    background: darken($color-primary, 10%);
+  }
+}
+
+.dh-btn-secondary {
+  color: $color-dark;
+  background: $color-white;
+  padding: 0.5rem $padding;
+  border: none;
+
+  &:hover {
+    @include primary-hover();
+  }
+}
+
+.dh-btn-contact {
+  border: 1px solid $color-dark;
+  color: $color-dark;
+  background: $color-white;
+  padding: 0.25rem 0.75rem;
+
+  &:hover {
+    @include primary-hover();
+  }
+}
+
+.dh-btn-rounded {
+  border-radius: 20px;
+}
+
+//header
+
+header {
+  position: relative;
+
+  .dh-menu {
+    @extend .d-fr-jb-ac;
+    padding-top: $padding;
+    padding-bottom: $padding;
+  }
+
+  .search-bar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+
+    a {
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px 0 0 20px;
+      border: 1px solid $color-grey;
+      color: $color-grey !important;
+      border-right: 0;
+
+      &:hover {
+        @include primary-hover();
+      }
+    }
+  }
+}
+
+.dh-banner {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0)), url(../src/assets/images/chamber1.jpg) no-repeat center center;
+  background-size: cover;
+  height: calc(100vh - (5px + (2 * #{$padding}) + 2rem)); // 5px - header border, 2 * padding - header padding, 2rem - 1rem for menu padding & 1rem for text
+
+  .container,
+  .row {
+    height: 100%;
+  }
+
+}
+
+.nav {
+  .nav-link {
+    color: $color-dark !important;
+
+    &:hover,
+    &.active {
+      color: $color-primary !important;
+    }
+  }
+
+  &.dh-tab {
+    -webkit-box-shadow: 0 6px 6px -6px lighten($color-grey, 15%);
+    -moz-box-shadow: 0 6px 6px -6px lighten($color-grey, 15%);
+    box-shadow: 0 6px 6px -6px lighten($color-grey, 15%);
+
+    .dh-tab-item {
+      padding: 0.75rem 1rem;
+      color: $color-dark !important;
+
+      &:not(:first-child) {
+        border-left: 1px solid lighten($color-grey, 15%);
+      }
+
+      &:hover,
+      &.active {
+        color: $color-primary !important;
+        border-bottom: 2px solid $color-primary;
+      }
+
+    }
+  }
+}
+
+.custom-select:focus {
+  border-color: $color-primary;
+  outline: none;
+  box-shadow: none !important;
+}
+
+.input-group {
+  position: relative;
+
+  .dh-input-label {
+    position: absolute;
+    top: -10px;
+    z-index: 9;
+    left: 0.375rem;
+    padding: 0 0.5rem;
+    background: $color-white;
+    color: $color-primary;
+    font-size: 0.75rem;
+  }
+}
+
+// .dh-timeSlot {
+//   display: flex;
+//   min-height: 300px;
+//   text-align: center;
+
+//   .dh-slots {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-around;
+//   }
+
+//   .dh-time {
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: center;
+
+//     div {
+//       min-width: 100px;
+//     }
+//   }
+// }
+
+.dh-date-controls {
+  color: $color-grey;
+
+  &:hover>span {
+    color: $color-primary;
+    cursor: pointer;
+  }
+}
+
+/* ---- media queries ---- */
+@media (max-width: 768px) {
+  .dh-menu {
+    .nav {
+      flex-direction: column;
+
+      .menu-icon {
+        display: block;
+      }
+    }
+  }
+
+  .dh-banner-content {
+    padding-top: $padding;
+    padding-bottom: $padding;
+  }
+}
+
+@media (min-width: 768px) {
+  .dh-menu {
+    .nav {
+      flex-direction: row;
+
+      .menu-icon {
+        display: none;
+      }
+    }
+  }
+}
+
+/* ---- Portfolio ---- */
+.portfolio {
+  position: fixed;
+  bottom: 0;
+  padding: 0.5rem 1.25rem;
+  right: 2rem;
+  background: $color-primary;
+  color: $color-white;
+  border-radius: 10px 10px 0 0;
+
+  &:hover {
+    background: darken($color-primary, 10%);
+    cursor: pointer;
+  }
+}

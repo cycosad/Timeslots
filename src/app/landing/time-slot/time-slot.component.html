@@ -1,0 +1,41 @@
+<div class="input-group">
+  <div class="input-group-prepend dh-date-controls" (click)="changeDate(false)">
+    <span class="input-group-text"><i class="fas fa-caret-left"></i></span>
+  </div>
+  <input type="text" (dateSelect)="onDateSelect($event)" [(ngModel)]="dateData" ngbDatepicker #d="ngbDatepicker"
+    (focus)="d.toggle()" class="form-control text-center" />
+  <div class="input-group-prepend dh-date-controls" (click)="changeDate(true)">
+    <span class="input-group-text"><i class="fas fa-caret-right"></i></span>
+  </div>
+</div>
+
+<!-- <div class="dh-timeSlot">
+  <div class="dh-slots">
+    <div>Morning</div>
+    <div>Evening</div>
+    <div>Night</div>
+  </div>
+  <div class="dh-time">
+    <div *ngFor="let time of timeSlots">{{moment(time, 'X').format('HH:mm')}}</div>
+  </div>
+</div> -->
+
+<table class="table table-bordered text-center dh-timeSlots">
+  <tbody>
+    <ng-container *ngFor="let slot of timeSlots">
+      <tr *ngIf="slot.slot?.name">
+        <td rowspan="3" class="align-middle">{{slot.slot.name}}</td>
+        <td class="dh-timeBlock" *ngFor="let time of slot.timeSlots[0]" [ngClass]="{'active': time.status === 'AVAILABLE', 'booked': time.status === 'BOOKED'}"
+          [ngbPopover]="'Slot is ' + time.status.toLowerCase()" triggers="mouseenter:mouseleave" container="body">
+          {{time.status !== 'UNAVAILABLE' ? moment(time.time, 'X').format('hh:mm a') : '-'}}</td>
+      </tr>
+      <ng-container *ngFor="let sub of slot.timeSlots; let i = index">
+        <tr *ngIf="i !== 0">
+          <td class="dh-timeBlock" *ngFor="let time of sub" [ngClass]="{'active': time.status === 'AVAILABLE', 'booked': time.status === 'BOOKED'}"
+            [ngbPopover]="'Slot is ' + time.status.toLowerCase()" triggers="mouseenter:mouseleave" container="body">
+            {{time.status !== 'UNAVAILABLE' ? moment(time.time, 'X').format('hh:mm a') : '-'}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </tbody>
+</table>
