@@ -15,9 +15,10 @@ export class TimeSlotComponent implements OnInit {
   moment = moment;
 
   /**
-   * Sets today as default value
+   * Sets today as default value and convert it into ngb date format
+   * example - {day: 1, month: 12, year: '2019'}
    */
-  dateData = moment().startOf('day').toDate();
+  dateData = this.convertToNgbDateObject(moment().startOf('day'));
 
   timeSlots: TimeSlot[];
   slots: Slot[] = [
@@ -49,9 +50,8 @@ export class TimeSlotComponent implements OnInit {
   /**
    * On date select generates the time slots and availability
    */
-  onDateSelect(data) {
-    const date = data.year + '-' + data.month + '-' + data.day; // converting it to YYYY-MM-DD
-    this.generateTimeSlots(moment(date, 'YYYY-MM-DD'));
+  onDateSelect(date) { // converting it to YYYY-MM-DD
+    this.generateTimeSlots(this.convertToDate(date));
   }
 
   /**
@@ -59,11 +59,30 @@ export class TimeSlotComponent implements OnInit {
    */
   changeDate(flag) {
     if (flag) {
-      this.dateData = moment(this.dateData).add(1, 'day').toDate();
+      this.dateData = this.convertToNgbDateObject(this.convertToDate(this.dateData).add(1, 'day'));
     } else {
-      this.dateData = moment(this.dateData).subtract(1, 'day').toDate();
+      this.dateData = this.convertToNgbDateObject(this.convertToDate(this.dateData).subtract(1, 'day'));
     }
-    this.generateTimeSlots(moment(this.dateData, 'YYYY-MM-DD'));
+    this.generateTimeSlots(this.convertToDate(this.dateData));
+  }
+
+  /**
+   * Convert date into ngb date format
+   * example - {day: 1, month: 12, year: '2019'}
+   */
+  convertToNgbDateObject(date) {
+    return {
+      day: parseInt(moment(date).format('DD'), 10),
+      month: parseInt(moment(date).format('MM'), 10),
+      year: parseInt(moment(date).format('YYYY'), 10)
+    }
+  }
+
+  /**
+   * Changes date format
+   */
+  convertToDate(date) {
+    return moment(date.year + '-' + date.month + '-' + date.day, 'YYYY-MM-DD');
   }
 
   /**
@@ -135,7 +154,7 @@ export class TimeSlotComponent implements OnInit {
     const temp = res.timeSlots.find((item) => {
       return moment(date).add(item.time, 'seconds').format('X') === startTime;
     });
-    return temp && temp.status ? temp.status :  'UNAVAILABLE';
+    return temp && temp.status ? temp.status : 'UNAVAILABLE';
   }
 
 }
